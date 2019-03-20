@@ -3,6 +3,7 @@
 [Downloadable releases](https://github.com/Keplerjs/Kepler/releases)
 
 ## Next version
+- new server method K.findIpByUser to find ip for eac logged user
 - custom meta and link tags by settings by K.settings.public.router.meta
 - plugin admin create route for each loaded places and users, fix categories tagsinput bug
 - core-ui new helper routeParam, renamed helper ifRoute in routeIs 

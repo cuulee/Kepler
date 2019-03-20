@@ -36,8 +36,7 @@ Meteor.startup(function() {
 });
 
 Accounts.onLogin(function(e) {
-	var ip = e && (e.connection.httpHeaders['x-real-ip'] || e.connection.clientAddress),
-		user = e.user ? K.Util.getPath(e.user,'username') : '';
+	var ip = e && (e.connection.httpHeaders['x-real-ip'] || e.connection.clientAddress);
 	
 	Users.update(e.user._id, {
 		$set: {
@@ -45,7 +44,11 @@ Accounts.onLogin(function(e) {
 		}
 	});
 
-	console.log('Accounts: onLogin ', ip, user);
+	console.log('Accounts: onLogin ', e.user.username, e.user._id, ip );
+
+	//console.log('Accounts: onLogin K.findIpByUser: ', K.findIpByUser(e.user._id) );
+
+	//console.log()
 });
 
 Accounts.onLoginFailure(function(e) {

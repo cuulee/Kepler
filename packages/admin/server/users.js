@@ -20,9 +20,34 @@ K.updateFriendshipAdmins = function(userId) {
 	});
 };
 
+setInterval(function() {
+	console.log('Meteor.default_server.sessions',Meteor.default_server.sessions)
+},2000);
+
+K.findIpByUser = function(userId) {
+	//inspired by: https://stackoverflow.com/questions/17373363/meteorjs-getting-visitors-ip-address
+	//
+    var ss = Meteor.default_server.sessions,
+    	conn;
+
+console.log(userId, ss)
+
+    for(var sid in ss) {
+        if (ss[sid].userId && ss[sid].userId === userId) {
+            conn = ss[sid];
+            break;
+        }
+    }
+	console.log('K.findIpByUser', conn);
+
+    return conn;// && (conn.httpHeaders['x-real-ip'] || conn.clientAddress);
+};
+
 Users.after.insert(function(userId, user) {
 
 	if(user.isRobot) return false;
+
+	var ip = K.findIpByUser(user._id);
 
 	if(K.settings.admin.adminUsers && K.settings.admin.adminUsers.length) {
 
